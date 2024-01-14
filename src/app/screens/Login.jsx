@@ -1,6 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+
 import { DashboardContext } from '../App';
+import { Link } from 'react-router-dom';
 
 export default function Login() {
   const { setIsDashboard } = useContext(DashboardContext);

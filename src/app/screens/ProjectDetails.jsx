@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ProjectCard } from '../components';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import { ArrowRight } from 'react-feather';
 import { Image } from 'cloudinary-react';
+import { ProjectCard } from '../components';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function ProjectDetails() {
   const navigate = useNavigate();

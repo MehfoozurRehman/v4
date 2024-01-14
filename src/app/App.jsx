@@ -1,13 +1,15 @@
-import React, { useState, createContext } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import './App.scss';
+
 import { Contact, Home, Portfolio, ProjectDetails } from './screens';
 import { ContactSection, Footer, Header } from './components';
+import React, { createContext, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+
 import { CloudinaryContext } from 'cloudinary-react';
-import info from './assets/info.json';
-import TestimonialFormSection from './components/TestimonialFormSection';
-import Login from './screens/Login';
-import './App.scss';
 import Dashboard from './screens/Dashboard';
+import Login from './screens/Login';
+import TestimonialFormSection from './components/TestimonialFormSection';
+import info from './assets/info.json';
 
 function Routing({ info }) {
   return (
