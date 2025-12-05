@@ -42,7 +42,7 @@
     "cloudinary-react": "^1.8.1",
     "cors": "^2.8.5",
     "dotenv": "^16.6.1",
-    "express": "^4.21.2",
+    "express": "^4.22.1",
     "express-fileupload": "^1.5.2",
     "gravatar-url": "^4.0.1",
     "mongoose": "^6.13.8",
@@ -50,7 +50,7 @@
     "react-dom": "^17.0.2",
     "react-feather": "^2.0.10",
     "react-router-dom": "^6.30.2",
-    "sass": "^1.94.1",
+    "sass": "^1.94.2",
     "swiper": "^8.4.7"
   }
 }
