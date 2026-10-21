@@ -35,8 +35,8 @@ mongoose
   });
 cloudinary.config({
   cloud_name: 'mehfoozurrehman',
-  api_key: '915662453295273',
-  api_secret: 'msK9WHKJPgdH93nmAEi88kDl0jI',
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 // api endpoints
