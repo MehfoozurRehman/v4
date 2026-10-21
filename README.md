@@ -1,62 +1,48 @@
-# Developer Full-Stack Portfolio v4
+# Developer Full-Stack Portfolio (v4)
 
-A full-stack personal portfolio and client showcase web application built with React, Vite, Express, MongoDB, and Cloudinary.
+A personal portfolio and client showcase with an Express and MongoDB API behind a React front end. Visitors can read projects and testimonials and send contact messages; the owner manages content through the API.
 
-## Overview
+**Status:** In progress. The public pages, the project, contact and testimonial endpoints and the image upload code are real, but the dashboard login does not check credentials, the upload route never sends a response, and none of the API routes require authentication.
 
-`v4` combines a modern Vite-powered React client with an Express API backend, providing dynamic project administration, Cloudinary asset uploads, MongoDB project databases, interactive Swiper carousels, and Firebase deployment workflows.
+## The problem
 
-## Tech Stack
+A developer wants one site that presents their work and collects leads and client testimonials, with the content stored in a database instead of hard-coded in the page. This repo is the full-stack version of that idea.
 
-- **Frontend**: React (v17), [Vite](https://vitejs.dev/) (v2), React Router DOM v6, Swiper.js (v8), SCSS
-- **Backend Server**: Node.js & Express (v4)
-- **Database**: MongoDB & Mongoose (v6)
-- **Media & Assets**: Cloudinary (`cloudinary`, `cloudinary-react`), `express-fileupload`
-- **Hosting**: Firebase Hosting (`firebase.json`)
+## What it does
 
-## Prerequisites
+- Public site with home, about, services, skills, portfolio, project details and contact sections (`src/app/screens/`, `src/app/components/`).
+- Portfolio filtering and project cards backed by the `projects` collection.
+- Contact form and testimonial form that post to the API (`ContactSection.jsx`, `TestimonialFormSection.jsx`).
+- REST endpoints for contacts, projects and testimonials: `get_*`, `set_*` and `delete_*` under `/api/v1` (`src/lib/routers/`).
+- Image upload to Cloudinary through `POST /api/v1/upload` (`src/server.js`).
 
-- Node.js (v16 or v18 recommended)
-- MongoDB instance (local or MongoDB Atlas)
-- Package manager (`pnpm` or `npm`)
-- Cloudinary account credentials
+## How it's built
 
-## Getting Started
+- Express 4 server in `src/server.js`. It connects to MongoDB with Mongoose 6, serves the built client from `dist/app`, and mounts three routers.
+- Data models in `src/lib/models/` (contact, project, testimonial). Each router reads and writes through its model.
+- React 17 client built with Vite. Pages are plain components under `src/app/`, styled with Sass and Swiper for carousels.
+- Server code is compiled with Babel into `dist/` before it is started, so the production server runs `node dist/server.js`.
+- Cloudinary credentials are read from environment variables. The cloud name is set in code.
+- Firebase Hosting is configured for the client through `firebase.json`.
 
-1. **Install dependencies**:
-   ```bash
-   pnpm install
-   # or
-   npm install
-   ```
+## Running it locally
 
-2. **Configure Environment Variables**:
-   Create a `.env` file in the root directory:
-   ```env
-   PORT=9000
-   MONGO_DB_URL="your-mongodb-connection-string"
-   ```
+```bash
+pnpm install
+# create .env with MONGO_DB_URL, CLOUDINARY_API_KEY and CLOUDINARY_API_SECRET
+pnpm dev          # starts nodemon for the API and Vite for the client
+pnpm build        # babel for the server, vite for the client
+pnpm start        # runs dist/server.js
+```
 
-3. **Run Concurrently in Development Mode**:
-   ```bash
-   pnpm dev
-   # or
-   npm run dev
-   ```
+Other scripts: `clean`, `serve` (Vite preview), `test` (Prettier, ESLint and Stylelint checks, no unit tests) and `deploy` (build, then `firebase deploy`).
 
-4. **Running Services Individually**:
-   - Client dev server: `npm run client:dev`
-   - Express server: `npm run server:dev`
+## What's left
 
-## Available Scripts
-
-- `npm run dev` - Concurrently boots both Express backend and Vite frontend with live reload.
-- `npm run client:dev` - Starts only the Vite frontend dev server.
-- `npm run server:dev` - Starts only the Express backend with `nodemon`.
-- `npm run build` - Compiles both server and client for production.
-- `npm start` - Starts the compiled production server.
-- `npm run deploy` - Builds and deploys directly to Firebase Hosting.
-
-## Author
-
-Created by [Mehfooz-ur-Rehman](https://github.com/MehfoozurRehman).
+- The login screen (`src/app/screens/Login.jsx`) only logs the email and password to the console. Nothing is checked and no session is created.
+- `POST /api/v1/upload` uploads the file but never sends a response, so the caller hangs.
+- None of the `set_*` and `delete_*` routes check who is calling, so anyone who can reach the API can change or delete content.
+- `ContactSection.jsx` still has commented-out request code and a timed placeholder path.
+- No unit or API tests; the `test` script only runs linters.
+- `PORT` defaults to 3001 in code, and the `.env` file is not committed, so setup depends on the README steps above.
+- Cloudinary credentials were previously hard-coded in `src/server.js`. They now come from the environment, but the old values remain in git history and should be rotated.
