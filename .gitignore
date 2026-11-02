@@ -4,8 +4,7 @@ dist-ssr
 *.local
 .eslintcache
 
-.env
-.env.*
 !.env.example
 *serviceAccountKey*.json
 *firebase-admin*.json
+config.bat
